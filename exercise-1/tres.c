@@ -7,7 +7,6 @@ void main() {
   while (i < 2) {
     i++;
     if (fork()) {
-      printf("%i\n", getpid());
       wait(NULL);
     } else {
       printf("Processo %i filho de %i\n", getpid(), getppid());
