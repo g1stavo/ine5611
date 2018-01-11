@@ -6,5 +6,5 @@ Duskull
 Why?
 =============
 
-I did an Operational Systems class at my university and these are the exercises required. I basically learn about processes, Unix, Threads, memory managent and file systems.
+I did an Operational Systems class at my university and these are the exercises required. I basically learned about processes, Unix, Threads, memory managent and file systems.
 There's also a NIM game that was our first project, and it's implemented using the Minimax algorithm.
