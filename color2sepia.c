@@ -7,9 +7,7 @@
                         ou tamanho da struct */
 typedef  unsigned char RGBelement; // Cada eleemento RGB é representdao por 8 bits; um pixex tem 3 bytes (24 bits)
 
-
 /*struct pixel{uint8_t r,g,b;};*/
-
 struct bmpHeader {
     uint16_t type;
     uint32_t size;
@@ -39,16 +37,14 @@ void printbin(char texto[], unsigned int valor)
 {
      int i;
      printf("%s",texto);
-     for (i=31;i>=0;i--) printf("%d",valor >> i & 1); 
+     for (i=31;i>=0;i--) printf("%u",valor >> i & 1); 
      printf("\n");
  }
- 
- 
 
 int main() {
     FILE *imagem;
     FILE *nova;
-    int erro = 0;
+    int erro;
     RGBelement  valorReal;
     
     imagem = fopen("GiocondaHighResolution.bmp", "rb");
@@ -135,19 +131,19 @@ int main() {
     
     
     printf("Image size = %d x %d\n", bH.width, bH.height);
-    printf("Tamanho do arquivo = %d\n", bH.size);
+    printf("Tamanho do arquivo = %u\n", bH.size);
     printf("Number of colour planes is %hu\n", bH.planes);
     printf("Bits per pixel is %hu\n", bH.bits);
     printf("Compression type is %u\n", bH.compression);
     printf("Number of colours is %u\n", bH.ncolours);
     printf("Number of required colours is %u\n", bH.importantcolours);
     printf("X resolution: %d - Y resolution: %d (ps: pixels per meter)\n", bH.xresolution, bH.yresolution);
-    printf("Header size is %d\n", bH.header_size);
+    printf("Header size is %u\n", bH.header_size);
     printbin("Red channel bitmask ", bH.redbitmask);
     printbin("Blue channel bitmask ", bH.bluebitmask);
     printbin("Green channel bitmask ", bH.greenbitmask);
     printbin("Alpha channel bitmask ", bH.alphabitmask);
-    printf("Tamanho do bmp header %d\n",sizeof(struct bmpHeader));
+    printf("Tamanho do bmp header %u\n",sizeof(struct bmpHeader));
     
     fclose(imagem);
     fclose(nova);
