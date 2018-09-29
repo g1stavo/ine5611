@@ -14,25 +14,25 @@
 #include <unistd.h>
 
 // mutex lock
-pthread_mutex_t	lock1;
+pthread_mutex_t lock1;
 // NIM coins
 int coins = 10;
 
-// ternary tree node. 
+// ternary tree node
 struct Node {
-    int value, guard;
-    struct Node *left, *center, *right;
+  int value, guard;
+  struct Node *left, *center, *right;
 };
 
 struct Node *root = NULL;
 
 // creates a ternary tree node
 struct Node* newNode(int value) {
-    struct Node* temp = (struct Node*) malloc(sizeof( struct Node ));
-    temp->value = value;
-    temp->guard = 2;
-    temp->left = temp->center = temp->right = NULL;
-    return temp;
+  struct Node* temp = (struct Node*) malloc(sizeof(struct Node));
+  temp->value = value;
+  temp->guard = 2;
+  temp->left = temp->center = temp->right = NULL;
+  return temp;
 }
 
 // build minimax tree. why a ternary tree? well, in NIM you can only remove 1, 2 or 3 objects
@@ -107,39 +107,54 @@ void fillGuards(struct Node* *node, bool max) {
 // chooses the smallest guard if it's min
 int bestMove(bool max) {
   int guard1, guard2, guard3 = 0;
-  if ((root)->left)
+  if ((root)->left) {
     guard1 = ((root)->left)->guard;
-  if ((root)->center)
+  }
+  if ((root)->center) {
     guard2 = ((root)->center)->guard;
-  if ((root)->right)
-    guard3 = ((root)->right)->guard;
-    if (max) {
-      if (guard1 > guard2 && guard1 > guard3)
-        return (root)->value - ((root)->left)->value;
-      if (guard2 > guard1 && guard2 > guard3)
-        return (root)->value - ((root)->center)->value;
-      if (guard3 > guard1 && guard3 > guard2)
-        return (root)->value - ((root)->right)->value;
-      if (guard1 == guard2 && guard1 > guard3)
-        return (root)->value - ((root)->left)->value;
-      if (guard1 == guard3 && guard1 > guard2)
-        return (root)->value - ((root)->left)->value;
-      if (guard2 == guard3 && guard2 > guard1)
-        return (root)->value - ((root)->center)->value;
-    } else {
-      if (guard1 < guard2 && guard1 < guard3)
-        return (root)->value - ((root)->left)->value;
-      if (guard2 < guard1 && guard2 < guard3)
-        return (root)->value - ((root)->center)->value;
-      if (guard3 < guard1 && guard3 < guard2)
-        return (root)->value - ((root)->right)->value;
-      if (guard1 == guard2 && guard1 < guard3)
-        return (root)->value - ((root)->left)->value;
-      if (guard1 == guard3 && guard1 < guard2)
-        return (root)->value - ((root)->left)->value;
-      if (guard2 == guard3 && guard2 < guard1)
-        return (root)->value - ((root)->center)->value;
+  }
+  if ((root)->right) {
+    guard3 = ((root)->right)->guard; 
+  }
+  if (max) {
+    if (guard1 > guard2 && guard1 > guard3) {
+      return (root)->value - ((root)->left)->value;
     }
+    if (guard2 > guard1 && guard2 > guard3) {
+      return (root)->value - ((root)->center)->value;
+    }
+    if (guard3 > guard1 && guard3 > guard2) {
+      return (root)->value - ((root)->right)->value;
+    }
+    if (guard1 == guard2 && guard1 > guard3) {
+      return (root)->value - ((root)->left)->value;
+    }
+    if (guard1 == guard3 && guard1 > guard2) {
+      return (root)->value - ((root)->left)->value;
+    }
+    if (guard2 == guard3 && guard2 > guard1) {
+      return (root)->value - ((root)->center)->value;
+    }
+  } else {
+    if (guard1 < guard2 && guard1 < guard3) {
+      return (root)->value - ((root)->left)->value;
+    }
+    if (guard2 < guard1 && guard2 < guard3) { 
+      return (root)->value - ((root)->center)->value;
+    }
+    if (guard3 < guard1 && guard3 < guard2) {
+      return (root)->value - ((root)->right)->value;
+    }
+    if (guard1 == guard2 && guard1 < guard3) {
+      return (root)->value - ((root)->left)->value;
+    }
+    if (guard1 == guard3 && guard1 < guard2) {
+      return (root)->value - ((root)->left)->value;
+    }
+    if (guard2 == guard3 && guard2 < guard1) {
+      return (root)->value - ((root)->center)->value;
+    }
+  }
 }
 
 // lock mutex, deallocate memory
@@ -173,8 +188,8 @@ int game () {
   if (move > 0 && move < 4) {
     coins -= move;
     if (coins == 1) {
-        printf("You beat me!\n");
-        exit(0);
+      printf("You beat me!\n");
+      exit(0);
     }
     pthread_t worker;
     pthread_create(&worker, NULL, updateRoot, NULL); 
@@ -193,10 +208,10 @@ int game () {
 // main function
 // start root, explain the rules and calls game
 int main(void) {
-    root = newNode(coins);	
-    printf("Welcome to NIM. The game starts with imaginary 5 coins on the table.\n");
-    printf("You can type 1, 2 or 3 for removing the coins. Your main objective is\n");
-    printf("to leave the computer with just one coin. Can you? Let's play!\n");
-    game();
-    return 0;
+  root = newNode(coins);	
+  printf("Welcome to NIM. The game starts with imaginary 5 coins on the table.\n");
+  printf("You can type 1, 2 or 3 for removing the coins. Your main objective is\n");
+  printf("to leave the computer with just one coin. Can you? Let's play!\n");
+  game();
+  return 0;
 }

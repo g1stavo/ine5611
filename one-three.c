@@ -11,16 +11,16 @@ void main() {
     } else {
       printf("Processo %i filho de %i\n", getpid(), getppid());
       if (fork()) {
-          wait(NULL);
+        wait(NULL);
       } else {
         printf("Processo %i filho de %i\n", getpid(), getppid());
         if (fork()) {
-            wait(NULL);
+          wait(NULL);
         } else {
           printf("Processo %i filho de %i\n", getpid(), getppid());
         }
       }
-      return;
+    return;
     }
   }
 }
