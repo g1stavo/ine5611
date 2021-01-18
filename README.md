@@ -1,4 +1,6 @@
-# INE5611
+# operational-systems
+
+Exercises from Operational Systems class
 
 ## Usage
 ```shell

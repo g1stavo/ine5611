@@ -2,6 +2,6 @@
 #include <unistd.h>
 
 void main() {
-  fork();
-  printf("Novo processo criado!\n");
+    fork();
+    printf("Novo processo criado!\n");
 }
