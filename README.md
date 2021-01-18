@@ -1,6 +1,6 @@
-# operational-systems
+# operating-systems
 
-Exercises from Operational Systems class
+Exercises from Operating Systems class
 
 ## Usage
 ```shell
